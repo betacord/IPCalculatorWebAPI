@@ -1,4 +1,6 @@
 let express = require('express');
+let networkingHelper = require('../helpers/networking');
+
 let router = express.Router();
 
 router.get('/', (req, res, next) => {
@@ -8,10 +10,8 @@ router.get('/', (req, res, next) => {
         });
     }
 
-    res.json({
-       network: req.query.ip,
-       broadcast: req.query.mask,
-       count: '10'
+    networkingHelper.getAllData(req.query.ip, req.query.mask, (result) => {
+        res.json(result);
     });
 });
 
